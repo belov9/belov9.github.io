@@ -1,1 +1,122 @@
 # belov9.github.io
+<!DOCTYPE html>
+<html>
+  <meta charset='utf-8'>
+ 
+  <style>
+    canvas {
+    padding: 0% 25%;
+}
+  </style>
+  <body>
+     <div class="header"> </div>
+    <canvas height='600' width='800' id='pict'>cats</canvas>
+    <a href="#" onclick="slide()"> ещё</a>
+       <p> Цитата с картинки:</p>
+        <p id='quote'> </p>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+    function wrapText(context, text, marginLeft, marginTop, maxWidth, lineHeight)
+    {
+        var words = text.split(" ");
+        var countWords = words.length;
+        var line = "";
+        for (var n = 0; n < countWords; n++) {
+            var testLine = line + words[n] + " ";
+            var testWidth = context.measureText(testLine).width;
+            if (testWidth > maxWidth) {
+              context.fillText(line, marginLeft, marginTop);
+                context.strokeText(line, marginLeft, marginTop);
+                line = words[n] + " ";
+                marginTop += lineHeight;
+            }
+            else {
+                line = testLine;
+            }
+        }
+ context.fillText(line, marginLeft, marginTop);
+        context.strokeText(line, marginLeft, marginTop);
+    }
+          
+      var pict = document.getElementById("pict"),
+        ctx       = pict.getContext('2d'), 
+        pic       = new Image();     
+      pic.src    ="https://picsum.photos/1024/768/?random";
+         pic.onload = function() {    
+        ctx.drawImage(pic, 0, 0, 800, 600);  
+    ctx.strokeStyle = "#F4A460";
+    ctx.fillStyle = "#A52A2A";
+    ctx.shadowColor = "black";
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+    ctx.shadowBlur = 0;
+    ctx.font = 'italic 40px Courier';
+           var tag = document.createElement("script");
+tag.src="https://api.forismatic.com/api/1.0/?method=getQuote&format=jsonp&lang=ru&jsonp=parseQuote";
+$('#quote').html(tag); 
+      } 
+           function parseQuote(response) {
+ $("#quote").text(response.quoteText);
+ wrapText(ctx, response.quoteText, 100, 70, 600, 40);
+};
+
+     
+    function slide() {
+      var pict = document.getElementById("pict"),
+        ctx       = pict.getContext('2d'), 
+        pic       = new Image();     
+      pic.src    ="https://picsum.photos/1024/768?image="+ Math.floor(Math.random() * (40));
+         pic.onload = function() {    
+        ctx.drawImage(pic, 0, 0, 800, 600);  
+    ctx.strokeStyle = "#F4A460";
+    ctx.fillStyle = "#A52A2A";
+    ctx.shadowColor = "black";
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+    ctx.shadowBlur = 0;
+    ctx.font = 'italic 40px Courier';
+           var tag = document.createElement("script");
+tag.src="https://api.forismatic.com/api/1.0/?method=getQuote&format=jsonp&lang=ru&jsonp=parseQuote";
+$('#quote').html(tag); 
+      } 
+           function parseQuote(response) {
+ $("#quote").text(response.quoteText);
+ wrapText(ctx, response.quoteText, 100, 70, 600, 40);
+};
+      }
+    </script>
+  <style>
+
+    body {
+  background-color: #F5F5DC;
+   }
+    a {
+  text-align: center;
+  color: #A52A2A;
+  background-color: #F5F5DC;
+  border-style: outset;
+  border-color: #FFDEAD;
+  border-width: 2px;
+  height: 30%;
+  width: 30%;
+  font-size: 2vw;
+  margin-left: 45%;
+    font-style: italic;
+    }
+        .header {
+  text-align: center;
+  font-style: italic;
+  color: #A52A2A;
+  height: 10%;
+  width: auto;
+  font-size: 2.5vw;
+  min-width: 90%;
+}
+p{
+  text-align: center;
+ font-style: italic;
+  color: #A52A2A; 
+}
+  </style>
+  </body>
+</html>
