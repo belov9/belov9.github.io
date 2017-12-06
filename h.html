@@ -1,122 +1,136 @@
-
 <!DOCTYPE html>
-<html>
-  <meta charset='utf-8'>
- 
-  <style>
-    canvas {
-    padding: 0% 25%;
-}
-  </style>
-  <body>
-     <div class="header"> </div>
-    <canvas height='600' width='800' id='pict'>cats</canvas>
-    <a href="#" onclick="slide()"> ещё</a>
-       <p> Цитата с картинки:</p>
-        <p id='quote'> </p>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script>
-    function wrapText(context, text, marginLeft, marginTop, maxWidth, lineHeight)
-    {
-        var words = text.split(" ");
-        var countWords = words.length;
-        var line = "";
-        for (var n = 0; n < countWords; n++) {
-            var testLine = line + words[n] + " ";
-            var testWidth = context.measureText(testLine).width;
-            if (testWidth > maxWidth) {
-              context.fillText(line, marginLeft, marginTop);
-                context.strokeText(line, marginLeft, marginTop);
-                line = words[n] + " ";
-                marginTop += lineHeight;
-            }
-            else {
-                line = testLine;
-            }
-        }
- context.fillText(line, marginLeft, marginTop);
-        context.strokeText(line, marginLeft, marginTop);
-    }
-          
-      var pict = document.getElementById("pict"),
-        ctx       = pict.getContext('2d'), 
-        pic       = new Image();     
-      pic.src    ="https://picsum.photos/1024/768/?random";
-         pic.onload = function() {    
-        ctx.drawImage(pic, 0, 0, 800, 600);  
-    ctx.strokeStyle = "#F4A460";
-    ctx.fillStyle = "#A52A2A";
-    ctx.shadowColor = "black";
-    ctx.shadowOffsetX = 2;
-    ctx.shadowOffsetY = 2;
-    ctx.shadowBlur = 0;
-    ctx.font = 'italic 40px Courier';
-           var tag = document.createElement("script");
-tag.src="https://api.forismatic.com/api/1.0/?method=getQuote&format=jsonp&lang=ru&jsonp=parseQuote";
-$('#quote').html(tag); 
-      } 
-           function parseQuote(response) {
- $("#quote").text(response.quoteText);
- wrapText(ctx, response.quoteText, 100, 70, 600, 40);
-};
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Barbershop</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
 
-     
-    function slide() {
-      var pict = document.getElementById("pict"),
-        ctx       = pict.getContext('2d'), 
-        pic       = new Image();     
-      pic.src    ="https://picsum.photos/1024/768?image="+ Math.floor(Math.random() * (40));
-         pic.onload = function() {    
-        ctx.drawImage(pic, 0, 0, 800, 600);  
-    ctx.strokeStyle = "#F4A460";
-    ctx.fillStyle = "#A52A2A";
-    ctx.shadowColor = "black";
-    ctx.shadowOffsetX = 2;
-    ctx.shadowOffsetY = 2;
-    ctx.shadowBlur = 0;
-    ctx.font = 'italic 40px Courier';
-           var tag = document.createElement("script");
-tag.src="https://api.forismatic.com/api/1.0/?method=getQuote&format=jsonp&lang=ru&jsonp=parseQuote";
-$('#quote').html(tag); 
-      } 
-           function parseQuote(response) {
- $("#quote").text(response.quoteText);
- wrapText(ctx, response.quoteText, 100, 70, 600, 40);
-};
-      }
-    </script>
-  <style>
+	<Header id="header" class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<img src="img/bbb.png" alt="" class="bbb">
+				</div>
+				<div class="col-lg-7 ml-auto">
+					<nav>
+						<ul class="menu d-flex justify-content-center">
+							<li class="menu__item">
+								<a href="#">О нас</a>
+							</li>
+							<li class="menu__item">
+								<a href="#">Новости</a>
+							</li>
+							<li class="menu__item">
+								<a href="#">Связь</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<div class="col-lg-12">
+				<div class="titles">
+					Качество. Традиции. Стиль.
+				</div>
+				<a class="button" href="#"> Записаться онлайн </a>
+			</div>	
+	</header>
 
-    body {
-  background-color: #F5F5DC;
-   }
-    a {
-  text-align: center;
-  color: #A52A2A;
-  background-color: #F5F5DC;
-  border-style: outset;
-  border-color: #FFDEAD;
-  border-width: 2px;
-  height: 30%;
-  width: 30%;
-  font-size: 2vw;
-  margin-left: 45%;
-    font-style: italic;
-    }
-        .header {
-  text-align: center;
-  font-style: italic;
-  color: #A52A2A;
-  height: 10%;
-  width: auto;
-  font-size: 2.5vw;
-  min-width: 90%;
-}
-p{
-  text-align: center;
- font-style: italic;
-  color: #A52A2A; 
-}
-  </style>
-  </body>
+	<section id="second_part" class="second_part">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="title">				<h1>О нас</h1>
+						<h5> Место, где каждый мужчина может приятно провести свободное время: постричься, побриться, выпить различные напитки, пообщаться с интересными людьми, обсудить последние новости и затронуть актуальные темы...</h5>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="dostij">
+						<img src="img/ikonka.png" alt="" class="koko">
+						<p> 28<br> городов </p>
+					</div>
+
+				</div>
+				<div class="col-lg-4">
+					<div class="dostij">
+						<img src="img/ikonka.png" alt="" class="koko">
+						<p> 147<br> барбершопов </p>
+					</div>
+
+				</div>
+				<div class="col-lg-4">
+					<div class="dostij">
+						<img src="img/ikonka.png" alt="" class="koko">
+						<p> 860<br> стрижек в день </p>
+					</div>
+
+				</div>
+			
+
+
+				</div>
+			</div>
+	
+	</section>
+	<section id="thrd_part" class="thrd_part">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="title">				<h1>Новости</h1>
+						<h5> будь в курсе всех событий</h5>
+					</div>
+				</div>
+				
+				<div class="col-lg-6">
+					<div class="news">
+						<a href="#"><img src="img/screen_11.png" alt="" class="kokos"></a>
+						<p> На прошлой неделе в выставочном центре в Москве состоялся первый BarberShow. Смотри как это было! </p>
+					</div>
+
+				</div>
+				<div class="col-lg-6">
+					<div class="news">
+						<a href="#"><img src="img/screen_13.png" alt="" class="kokos" ></a>
+						<p> Один из самых популярных барберов Америки, Майкл Нонсон приехал в Москву показать мастер класс. </p>
+					</div>
+
+				</div>
+			
+
+
+				</div>
+			</div>
+	
+	</section>
+	<section id="for_part" class="for_part">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<h2> Хочешь записать на стрижку?</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+<form>
+	<div class="form">
+		<input type="text" name="Name" placeholder="Ваше имя..." required><br>
+		<input type="text" name="E-mail" placeholder="Выбранная услуга..." required><br>
+		<input type="text" name="Phone" placeholder="Номер телефона..."><br>
+		<button>Отправить</button>
+	
+	</div>
+
+</form>
+</div>
+</div>
+</div>
+	</section>
+	<footer>
+		
+	Evgeny Belov 2017
+	</footer>
+</body>
+
 </html>
