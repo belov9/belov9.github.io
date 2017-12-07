@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>canvasExample</title>
+      <meta charset='utf-8' />
+
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+
+      <header id="header" class="header">
+        <div class="container">
+         <div class="title">Генератор</div>
+        </div>
+      </header>
+        
+     <section>
+       
+     <div class="container">
+     
+     <div class="main">
+      <canvas height='480' width='680' id='example'></canvas>
+      
+      </div>
+    </div>
+      <div id="button" align="center">
+             <a class="button" href="#" id="refresh">Сгенерировать</a> 
+            
+        </section>
+
+   
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script type="text/javascript" src="http://scriptjava.net/source/scriptjava/scriptjava.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">      
+    
+  $(document).ready(function(){
+    var example = document.getElementById("example"),
+    ctx = example.getContext('2d'), 
+    pic = new Image();              
+    pic.src = 'https://picsum.photos/680/?random'; 
+    pic.onload = function() {   
+    ctx.drawImage(pic, 0, 0);
+    ctx.strokeStyle = "#000000";
+    ctx.fillStyle = "#FFEBCD";
+    
+    ctx.font = "40px Arial";
+    randomQuote();
+  }
+  
+  function wrapText(context, text, marginLeft, marginTop, maxWidth, lineHeight)
+    {
+      var words = text.split(" ");
+      var countWords = words.length;
+      var line = "";
+      for (var n = 0; n < countWords; n++) {
+        var testLine = line + words[n] + " ";
+        var testWidth = context.measureText(testLine).width;
+        if (testWidth > maxWidth) {
+          context.fillText(line, marginLeft, marginTop);
+          context.strokeText(line, marginLeft, marginTop);
+          line = words[n] + " ";
+          marginTop += lineHeight;
+        }
+        else {
+          line = testLine;
+        }
+      }
+      context.fillText(line, marginLeft, marginTop);
+      context.strokeText(line, marginLeft, marginTop);
+    }
+
+  function randomQuote() {
+    $.ajax({
+      url: "https://api.forismatic.com/api/1.0/?",
+      dataType: "jsonp",
+      data: "method=getQuote&format=jsonp&lang=ru&jsonp=?",
+      success: function( response ) { 
+        wrapText(ctx, response.quoteText, 40, 80, 620, 40);
+      }
+    });
+  }
+     
+  $("#new-quote").click(function(){
+    randomQuote();
+  });
+  $("#refresh").click(function(){
+    ctx.clearRect(0, 0, 680, 680);
+    pic = new Image();           
+    pic.src    ="https://picsum.photos/680?image="+ Math.floor(Math.random() * (1000)); 
+    pic.onload = function() { 
+      ctx.drawImage(pic, 0, 0);
+      randomQuote();
+    }
+  })
+});
+</script>
+</script>
+</body>
+</html>
+
